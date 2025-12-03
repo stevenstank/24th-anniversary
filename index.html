@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +9,36 @@
     <style>
         /* CSS STYLES ARE INLINED HERE */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        :root{
+            --bg: #f3f4f6; /* light gray */
+            --panel: #ffffff;
+            --muted: #6b7280;
+            --text: #111827;
+            --accent: #f59e0b; /* amber */
+            --hero-overlay: rgba(0,0,0,0.4);
+            --card-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        [data-theme="dark"]{
+            --bg: #0b1020; /* deep navy */
+            --panel: #0f1724; /* near-black panel */
+            --muted: #93a0b4;
+            --text: #e6eef8;
+            --accent: #fbbf24; /* slightly brighter amber */
+            --hero-overlay: rgba(2,6,23,0.6);
+            --card-shadow: 0 8px 20px rgba(2,6,23,0.6);
+        }
+
+        html,body{
+            height:100%;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
-            background-color: #f3f4f6; /* Restored to Soft Light Gray (gray-100 equivalent) */
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color 300ms ease, color 300ms ease;
         }
 
         /* Custom Styles for Section 1: The Hero */
@@ -27,7 +53,6 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: white; /* White text for contrast */
             overflow: hidden;
         }
         /* Dark overlay to ensure text is readable */
@@ -38,19 +63,27 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.4); /* 40% opaque dark overlay */
+            background: var(--hero-overlay); /* theme-aware overlay */
             z-index: 1;
+            transition: background 300ms ease;
+        }
+
+        /* Headline styling adaptable to theme */
+        .hero-headline{
+            color: white; /* kept white for contrast over image */
+            text-shadow: 0 6px 20px rgba(0,0,0,0.35);
         }
 
         /* Custom Styles for Section 2: Timeline */
         .timeline-section {
             padding: 80px 0;
             position: relative;
-            background-color: #fff; /* Keeping timeline background white for contrast */
+            background-color: var(--panel); /* theme-aware */
+            transition: background-color 300ms ease;
         }
-        
+
         .timeline-item {
-            padding: 10px 20px; /* Adjusted padding for better center alignment */
+            padding: 10px 20px;
             position: relative;
             width: 50%;
             box-sizing: border-box;
@@ -64,66 +97,120 @@
         }
         .timeline-item.left {
             left: 0;
-            padding-right: 20px; /* Reduced offset */
+            padding-right: 20px;
         }
         .timeline-item.right {
             left: 50%;
-            padding-left: 20px; /* Reduced offset */
+            padding-left: 20px;
         }
         .timeline-photo-card {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            padding: 5px 5px 25px 5px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transform: rotate(1deg); /* Slight tilt for scrapbook feel */
+            background: var(--panel);
+            border: 1px solid rgba(255,255,255,0.03);
+            padding: 5px 5px 18px 5px;
+            box-shadow: var(--card-shadow);
+            transform: rotate(1deg);
             max-width: 100%;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
         }
         .timeline-photo-card img {
             width: 100%;
             display: block;
-            border-radius: 4px;
+            border-radius: 8px;
+            filter: contrast(1.03) saturate(1.02);
         }
         .timeline-item:nth-child(even) .timeline-photo-card {
-            transform: rotate(-1deg); /* Alternate tilt */
+            transform: rotate(-1deg);
         }
         .timeline-content {
-            background-color: #fffbeb; /* Tailwind amber-50 background */
-            border-left: 5px solid #f59e0b;
+            background-color: rgba(251, 191, 36, 0.06); /* soft amber tint */
+            border-left: 5px solid var(--accent);
             padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
+            border-radius: 10px;
+            margin-top: 12px;
+            color: var(--text);
         }
-        /* Media Query for Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .timeline-item {
-                width: 100%;
-                padding-left: 20px; /* Consistent padding */
-                padding-right: 20px;
-                left: 0;
-            }
-            .timeline-item.left {
-                padding-right: 20px; /* Consistent padding */
-            }
-            .timeline-item.right {
-                left: 0; /* Items are no longer split */
-                padding-left: 20px; /* Consistent padding */
-            }
+
+        /* Countdown section styles */
+
+        /* Timeline text - improved visibility for both light & dark themes */
+        .timeline-title{ color: var(--text); }
+        .timeline-subtitle{ color: var(--muted); margin-top:6px; }
+        .timeline-year{ color: var(--text); }
+        .timeline-desc{ color: var(--muted); }
+        .timeline-footer{ color: var(--muted); }
+
+        #section-3{
+            background: linear-gradient(180deg, rgba(0,0,0,0.18), transparent), var(--panel);
+            transition: background 300ms ease, color 300ms ease;
         }
+
+        .time-block{
+            transition: background-color 300ms ease, color 300ms ease, transform 200ms ease;
+        }
+        .time-block:hover{ transform: translateY(-6px); }
+
+        /* Theme toggle button */
+        .theme-toggle{
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            z-index: 60;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
+            padding: 8px 10px;
+            border-radius: 999px;
+            box-shadow: 0 6px 18px rgba(16,24,40,0.15);
+            backdrop-filter: blur(6px) saturate(120%);
+            border: 1px solid rgba(255,255,255,0.6);
+            cursor: pointer;
+            transition: transform 180ms ease, background 300ms ease, color 300ms ease;
+        }
+        [data-theme="dark"] .theme-toggle{
+            background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+        }
+        .theme-toggle:active{ transform: scale(.98); }
+        .theme-toggle .dot{
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            background: linear-gradient(180deg, var(--panel), rgba(255,255,255,0.02));
+            box-shadow: 0 6px 18px rgba(16,24,40,0.08);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px){
+            .timeline-item{ width:100%; left:0; padding-left:20px; padding-right:20px; }
+            .theme-toggle{ right:14px; top:14px; }
+        }
+
     </style>
 </head>
 
 <body>
+    <!-- THEME TOGGLE BUTTON -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+        <span class="dot" id="themeIcon" aria-hidden="true">
+            <!-- Icon inserted by JS -->
+        </span>
+        <span id="themeLabel" class="hidden sm:inline text-sm font-medium" style="color:var(--text);">Dark</span>
+    </button>
+
     <!-- ======================================================= -->
     <!-- SECTION 1: HERO (Modern Anniversary Banner) -->
     <!-- ======================================================= -->
     <section id="section-1" class="relative z-0 flex items-center justify-center">
         <div class="z-10 px-4">
-            <h1 class="text-6xl sm:text-7xl lg:text-8xl font-extrabold mb-4 tracking-tighter shadow-sm">
+            <h1 class="text-6xl sm:text-7xl lg:text-8xl font-extrabold mb-4 tracking-tighter shadow-sm hero-headline">
                 24 Years Strong!
             </h1>
-            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-light italic mb-8">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-light italic mb-8 hero-headline">
                 Happy Anniversary, Mom & Dad!
             </h2>
             <p class="text-lg sm:text-xl font-medium max-w-2xl mx-auto mb-10">
@@ -143,8 +230,8 @@
     <!-- ======================================================= -->
     <section id="section-2" class="timeline-section">
         <div class="max-w-4xl mx-auto text-center mb-16 px-4">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4">📸 24 Years of Adventures</h2>
-            <p class="text-gray-600">A journey captured in moments, from the day it all started until now.</p>
+            <h2 class="text-4xl font-bold mb-4 timeline-title">📸 24 Years of Adventures</h2>
+            <p class="timeline-subtitle">A journey captured in moments, from the day it all started until now.</p>
         </div>
 
         <!-- Timeline Items - 8 items with alternating left/right layout -->
@@ -156,8 +243,8 @@
                     <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=First+Date+1999" alt="First Date Photo">
                 </div>
                 <div class="timeline-content">
-                    <h3 class="text-xl font-semibold text-gray-900">1999: The First Spark</h3>
-                    <p class="text-gray-700 mt-2">The legendary story of how you two first met at that coffee
+                    <h3 class="text-xl font-semibold timeline-year">1999: The First Spark</h3>
+                    <p class="timeline-desc mt-2">The legendary story of how you two first met at that coffee
                         shop/party/work event! The start of everything.</p>
                 </div>
             </div>
@@ -168,8 +255,8 @@
                     <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=The+Proposal+2001" alt="Proposal Photo">
                 </div>
                 <div class="timeline-content">
-                    <h3 class="text-xl font-semibold text-gray-900">2001: She Said Yes!</h3>
-                    <p class="text-gray-700 mt-2">The day the question was popped! Maybe mention the surprise, the
+                    <h3 class="text-xl font-semibold timeline-year">2001: She Said Yes!</h3>
+                    <p class="timeline-desc mt-2">The day the question was popped! Maybe mention the surprise, the
                         location, or the ring.</p>
                 </div>
             </div>
@@ -180,8 +267,8 @@
                     <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=Wedding+Day+2002" alt="Wedding Photo">
                 </div>
                 <div class="timeline-content">
-                    <h3 class="text-xl font-semibold text-gray-900">2002: The Big Day</h3>
-                    <p class="text-gray-700 mt-2">A beautiful description of the wedding ceremony and the start of your
+                    <h3 class="text-xl font-semibold timeline-year">2002: The Big Day</h3>
+                    <p class="timeline-desc mt-2">A beautiful description of the wedding ceremony and the start of your
                         official life together.</p>
                 </div>
             </div>
@@ -192,8 +279,8 @@
                     <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=First+House+2005" alt="First Home Photo">
                 </div>
                 <div class="timeline-content">
-                    <h3 class="text-xl font-semibold text-gray-900">2005: Settling Down</h3>
-                    <p class="text-gray-700 mt-2">The move into the first place you called home together. A true
+                    <h3 class="text-xl font-semibold timeline-year">2005: Settling Down</h3>
+                    <p class="timeline-desc mt-2">The move into the first place you called home together. A true
                         foundation for your family.</p>
                 </div>
             </div>
@@ -204,8 +291,8 @@
                     <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=New+Arrival+2010" alt="New Arrival Photo">
                 </div>
                 <div class="timeline-content">
-                    <h3 class="text-xl font-semibold text-gray-900">2010: Growing the Family</h3>
-                    <p class="text-gray-700 mt-2">The year everything changed with the arrival of your first child. A
+                    <h3 class="text-xl font-semibold timeline-year">2010: Growing the Family</h3>
+                    <p class="timeline-desc mt-2">The year everything changed with the arrival of your first child. A
                         new level of love unlocked!</p>
                 </div>
             </div>
@@ -216,8 +303,8 @@
                     <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=European+Trip+2015" alt="Vacation Photo">
                 </div>
                 <div class="timeline-content">
-                    <h3 class="text-xl font-semibold text-gray-900">2015: The Great Adventure</h3>
-                    <p class="text-gray-700 mt-2">That big trip you took where you created so many unforgettable, funny
+                    <h3 class="text-xl font-semibold timeline-year">2015: The Great Adventure</h3>
+                    <p class="timeline-desc mt-2">That big trip you took where you created so many unforgettable, funny
                         memories.</p>
                 </div>
             </div>
@@ -228,8 +315,8 @@
                     <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=Shared+Hobby+2020" alt="Hobby Photo">
                 </div>
                 <div class="timeline-content">
-                    <h3 class="text-xl font-semibold text-gray-900">2020: Finding a Passion</h3>
-                    <p class="text-gray-700 mt-2">The time you both started X hobby or project together, proving love
+                    <h3 class="text-xl font-semibold timeline-year">2020: Finding a Passion</h3>
+                    <p class="timeline-desc mt-2">The time you both started X hobby or project together, proving love
                         only gets stronger.</p>
                 </div>
             </div>
@@ -240,22 +327,22 @@
                     <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=Latest+Photo+2024" alt="Recent Photo">
                 </div>
                 <div class="timeline-content">
-                    <h3 class="text-xl font-semibold text-gray-900">2024: Today's Chapter</h3>
-                    <p class="text-gray-700 mt-2">A look at your current life—happier and stronger than ever,
+                    <h3 class="text-xl font-semibold timeline-year">2024: Today's Chapter</h3>
+                    <p class="timeline-desc mt-2">A look at your current life—happier and stronger than ever,
                         anticipating the future.</p>
                 </div>
             </div>
 
         </div>
         <div class="max-w-4xl mx-auto text-center mt-12">
-            <p class="text-gray-500">... and countless moments in between.</p>
+            <p class="timeline-footer">... and countless moments in between.</p>
         </div>
     </section>
 
     <!-- ======================================================= -->
     <!-- SECTION 3: THE SILVER COUNTDOWN -->
     <!-- ======================================================= -->
-    <section id="section-3" class="bg-gray-800 text-white py-16 px-4">
+    <section id="section-3" class="py-16 px-4">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl sm:text-4xl font-light mb-8">Looking Forward to the Next Milestone:</h2>
             <p class="text-5xl sm:text-6xl font-extrabold text-yellow-400 mb-10">
@@ -264,19 +351,19 @@
 
             <div class="flex justify-center flex-wrap gap-4 sm:gap-6 md:gap-8 countdown-container">
                 <!-- Time Blocks will be updated by JavaScript -->
-                <div class="time-block bg-white text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
+                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
                     <span id="days" class="text-4xl sm:text-5xl font-extrabold block">00</span>
                     <p class="text-sm font-semibold uppercase tracking-wider mt-1">Days</p>
                 </div>
-                <div class="time-block bg-white text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
+                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
                     <span id="hours" class="text-4xl sm:text-5xl font-extrabold block">00</span>
                     <p class="text-sm font-semibold uppercase tracking-wider mt-1">Hours</p>
                 </div>
-                <div class="time-block bg-white text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
+                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
                     <span id="minutes" class="text-4xl sm:text-5xl font-extrabold block">00</span>
                     <p class="text-sm font-semibold uppercase tracking-wider mt-1">Minutes</p>
                 </div>
-                <div class="time-block bg-white text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
+                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
                     <span id="seconds" class="text-4xl sm:text-5xl font-extrabold block">00</span>
                     <p class="text-sm font-semibold uppercase tracking-wider mt-1">Seconds</p>
                 </div>
@@ -289,6 +376,46 @@
     </footer>
 
     <script>
+        // THEME HANDLING
+        const root = document.documentElement;
+        const toggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeLabel = document.getElementById('themeLabel');
+
+        const ICONS = {
+            sun: `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f59e0b\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41\"/></svg>`,
+            moon: ` <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#fbbf24\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z\"/></svg>`
+        };
+
+        function applyTheme(theme){
+            if(theme === 'dark'){
+                root.setAttribute('data-theme','dark');
+                themeIcon.innerHTML = ICONS.moon;
+                themeLabel.textContent = 'Dark';
+            } else {
+                root.setAttribute('data-theme','light');
+                themeIcon.innerHTML = ICONS.sun;
+                themeLabel.textContent = 'Light';
+            }
+        }
+
+        // initialize theme: prefer saved -> system preference -> light
+        const saved = localStorage.getItem('site-theme');
+        if(saved){
+            applyTheme(saved);
+        } else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+            applyTheme('dark');
+        } else {
+            applyTheme('light');
+        }
+
+        toggle.addEventListener('click', () => {
+            const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+            localStorage.setItem('site-theme', next);
+        });
+
         // JAVASCRIPT LOGIC
         // 1. Silver Countdown Logic (Section 3)
         // Set the target date for the 25th anniversary (Dec 8, 2026, based on a 2002 wedding date assumption)
@@ -306,7 +433,7 @@
             const s = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Function to pad single digits with a leading zero
-            const pad = (num) => num.toString().padStart(2, '0');
+            const pad = (num) => Math.abs(num).toString().padStart(2, '0');
 
             // Output the result in elements
             const daysEl = document.getElementById("days");
