@@ -5,33 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>24 Years - Our Storybook</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        /* CSS STYLES ARE INLINED HERE */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
         :root {
             --bg: #f3f4f6;
-            /* light gray */
             --panel: #ffffff;
             --muted: #6b7280;
             --text: #111827;
             --accent: #f59e0b;
-            /* amber */
             --hero-overlay: rgba(0, 0, 0, 0.4);
-            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
         [data-theme="dark"] {
             --bg: #0b1020;
-            /* deep navy */
             --panel: #0f1724;
-            /* near-black panel */
             --muted: #93a0b4;
             --text: #e6eef8;
             --accent: #fbbf24;
-            /* slightly brighter amber */
             --hero-overlay: rgba(2, 6, 23, 0.6);
             --card-shadow: 0 8px 20px rgba(2, 6, 23, 0.6);
         }
@@ -49,14 +44,11 @@
             transition: background-color 300ms ease, color 300ms ease;
         }
 
-        /* Custom Styles for Section 1: The Hero */
         #section-1 {
-            /* Placeholder Background Image (Replace with a high-quality personal photo!) */
-            background-image: url('https://images.unsplash.com/photo-1555513904-8b63e8031d47?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-image: url('https://images.unsplash.com/photo-1555513904-8b63e8031d47?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3');
             background-size: cover;
             background-position: center;
             height: 100vh;
-            /* Full viewport height */
             position: relative;
             display: flex;
             align-items: center;
@@ -65,33 +57,24 @@
             overflow: hidden;
         }
 
-        /* Dark overlay to ensure text is readable */
         #section-1::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: var(--hero-overlay);
-            /* theme-aware overlay */
             z-index: 1;
             transition: background 300ms ease;
         }
 
-        /* Headline styling adaptable to theme */
         .hero-headline {
             color: white;
-            /* kept white for contrast over image */
             text-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
         }
 
-        /* Custom Styles for Section 2: Timeline */
         .timeline-section {
             padding: 80px 0;
             position: relative;
             background-color: var(--panel);
-            /* theme-aware */
             transition: background-color 300ms ease;
         }
 
@@ -101,7 +84,6 @@
             width: 50%;
             box-sizing: border-box;
             opacity: 0;
-            /* Hidden initially for JS animation */
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
@@ -127,16 +109,14 @@
             padding: 5px 5px 18px 5px;
             box-shadow: var(--card-shadow);
             transform: rotate(1deg);
-            max-width: 100%;
             border-radius: 12px;
             overflow: hidden;
         }
 
         .timeline-photo-card img {
             width: 100%;
-            display: block;
             border-radius: 8px;
-            filter: contrast(1.03) saturate(1.02);
+            display: block;
         }
 
         .timeline-item:nth-child(even) .timeline-photo-card {
@@ -145,7 +125,6 @@
 
         .timeline-content {
             background-color: rgba(251, 191, 36, 0.06);
-            /* soft amber tint */
             border-left: 5px solid var(--accent);
             padding: 15px;
             border-radius: 10px;
@@ -153,9 +132,6 @@
             color: var(--text);
         }
 
-        /* Countdown section styles */
-
-        /* Timeline text - improved visibility for both light & dark themes */
         .timeline-title {
             color: var(--text);
         }
@@ -178,7 +154,8 @@
         }
 
         #section-3 {
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent), var(--panel);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent),
+                var(--panel);
             transition: background 300ms ease, color 300ms ease;
         }
 
@@ -190,7 +167,6 @@
             transform: translateY(-6px);
         }
 
-        /* Theme toggle button */
         .theme-toggle {
             position: fixed;
             right: 20px;
@@ -229,7 +205,6 @@
             box-shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
         }
 
-        /* Mobile adjustments */
         @media (max-width: 768px) {
             .timeline-item {
                 width: 100%;
@@ -247,17 +222,11 @@
 </head>
 
 <body>
-    <!-- THEME TOGGLE BUTTON -->
     <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-        <span class="dot" id="themeIcon" aria-hidden="true">
-            <!-- Icon inserted by JS -->
-        </span>
+        <span class="dot" id="themeIcon"></span>
         <span id="themeLabel" class="hidden sm:inline text-sm font-medium" style="color:var(--text);">Dark</span>
     </button>
 
-    <!-- ======================================================= -->
-    <!-- SECTION 1: HERO (Modern Anniversary Banner) -->
-    <!-- ======================================================= -->
     <section id="section-1" class="relative z-0 flex items-center justify-center">
         <div class="z-10 px-4">
             <h1 class="text-6xl sm:text-7xl lg:text-8xl font-extrabold mb-4 tracking-tighter shadow-sm hero-headline">
@@ -267,10 +236,9 @@
                 Happy Anniversary, Mom & Dad!
             </h2>
             <p class="text-lg sm:text-xl font-medium max-w-2xl mx-auto mb-10">
-                Today, we celebrate two decades and four years of unwavering love, adventure, and family. Thank you for
-                showing us what a true partnership looks like.
+                Today, we celebrate two decades and four years of unwavering love, adventure, and family.
             </p>
-            <!-- Scroll down prompt -->
+
             <a href="#section-2"
                 class="inline-block px-8 py-3 text-lg font-semibold bg-white text-gray-800 rounded-full hover:bg-yellow-300 transition duration-300 shadow-xl">
                 See Our Story Below ↓
@@ -278,132 +246,105 @@
         </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- SECTION 2: TIMELINE (Alternating Photo Cards) -->
-    <!-- ======================================================= -->
     <section id="section-2" class="timeline-section">
         <div class="max-w-4xl mx-auto text-center mb-16 px-4">
             <h2 class="text-4xl font-bold mb-4 timeline-title">📸 24 Years of Adventures</h2>
-            <p class="timeline-subtitle">A journey captured in moments, from the day it all started until now.</p>
+            <p class="timeline-subtitle">A journey captured in moments.</p>
         </div>
 
-        <!-- Timeline Items - 8 items with alternating left/right layout -->
         <div class="max-w-4xl mx-auto">
-
-            <!-- Item 1: The Start (Left) -->
             <div class="timeline-item left">
                 <div class="timeline-photo-card">
-                    <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=First+Date+1999" alt="First Date Photo">
+                    <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=First+Date+1999">
                 </div>
                 <div class="timeline-content">
                     <h3 class="text-xl font-semibold timeline-year">1999: The First Spark</h3>
-                    <p class="timeline-desc mt-2">The legendary story of how you two first met at that coffee
-                        shop/party/work event! The start of everything.</p>
+                    <p class="timeline-desc mt-2">How it all began.</p>
                 </div>
             </div>
 
-            <!-- Item 2: The Proposal/Engagement (Right) -->
             <div class="timeline-item right">
                 <div class="timeline-photo-card">
-                    <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=The+Proposal+2001" alt="Proposal Photo">
+                    <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=The+Proposal+2001">
                 </div>
                 <div class="timeline-content">
                     <h3 class="text-xl font-semibold timeline-year">2001: She Said Yes!</h3>
-                    <p class="timeline-desc mt-2">The day the question was popped! Maybe mention the surprise, the
-                        location, or the ring.</p>
+                    <p class="timeline-desc mt-2">The proposal moment.</p>
                 </div>
             </div>
 
-            <!-- Item 3: The Wedding (Left) -->
             <div class="timeline-item left">
                 <div class="timeline-photo-card">
-                    <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=Wedding+Day+2002" alt="Wedding Photo">
+                    <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=Wedding+Day+2002">
                 </div>
                 <div class="timeline-content">
                     <h3 class="text-xl font-semibold timeline-year">2002: The Big Day</h3>
-                    <p class="timeline-desc mt-2">A beautiful description of the wedding ceremony and the start of your
-                        official life together.</p>
+                    <p class="timeline-desc mt-2">Wedding memories.</p>
                 </div>
             </div>
 
-            <!-- Item 4: First Home (Right) -->
             <div class="timeline-item right">
                 <div class="timeline-photo-card">
-                    <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=First+House+2005" alt="First Home Photo">
+                    <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=First+House+2005">
                 </div>
                 <div class="timeline-content">
                     <h3 class="text-xl font-semibold timeline-year">2005: Settling Down</h3>
-                    <p class="timeline-desc mt-2">The move into the first place you called home together. A true
-                        foundation for your family.</p>
+                    <p class="timeline-desc mt-2">First home together.</p>
                 </div>
             </div>
 
-            <!-- Item 5: Birth of Child (Left) -->
             <div class="timeline-item left">
                 <div class="timeline-photo-card">
-                    <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=New+Arrival+2010" alt="New Arrival Photo">
+                    <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=New+Arrival+2010">
                 </div>
                 <div class="timeline-content">
                     <h3 class="text-xl font-semibold timeline-year">2010: Growing the Family</h3>
-                    <p class="timeline-desc mt-2">The year everything changed with the arrival of your first child. A
-                        new level of love unlocked!</p>
+                    <p class="timeline-desc mt-2">A new chapter begins.</p>
                 </div>
             </div>
 
-            <!-- Item 6: Major Vacation (Right) -->
             <div class="timeline-item right">
                 <div class="timeline-photo-card">
-                    <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=European+Trip+2015" alt="Vacation Photo">
+                    <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=European+Trip+2015">
                 </div>
                 <div class="timeline-content">
                     <h3 class="text-xl font-semibold timeline-year">2015: The Great Adventure</h3>
-                    <p class="timeline-desc mt-2">That big trip you took where you created so many unforgettable, funny
-                        memories.</p>
+                    <p class="timeline-desc mt-2">Unforgettable memories.</p>
                 </div>
             </div>
 
-            <!-- Item 7: Hobby/Shared Interest (Left) -->
             <div class="timeline-item left">
                 <div class="timeline-photo-card">
-                    <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=Shared+Hobby+2020" alt="Hobby Photo">
+                    <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=Shared+Hobby+2020">
                 </div>
                 <div class="timeline-content">
-                    <h3 class="text-xl font-semibold timeline-year">2020: Finding a Passion</h3>
-                    <p class="timeline-desc mt-2">The time you both started X hobby or project together, proving love
-                        only gets stronger.</p>
+                    <h3 class="text-xl font-semibold timeline-year">2020: Shared Passion</h3>
+                    <p class="timeline-desc mt-2">Something you both love doing.</p>
                 </div>
             </div>
 
-            <!-- Item 8: The Latest Chapter (Right) -->
             <div class="timeline-item right">
                 <div class="timeline-photo-card">
-                    <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=Latest+Photo+2024" alt="Recent Photo">
+                    <img src="https://placehold.co/400x300/A52A2A/FFFFFF?text=Latest+Photo+2024">
                 </div>
                 <div class="timeline-content">
                     <h3 class="text-xl font-semibold timeline-year">2024: Today's Chapter</h3>
-                    <p class="timeline-desc mt-2">A look at your current life—happier and stronger than ever,
-                        anticipating the future.</p>
+                    <p class="timeline-desc mt-2">Still strong as ever.</p>
                 </div>
             </div>
-
         </div>
+
         <div class="max-w-4xl mx-auto text-center mt-12">
-            <p class="timeline-footer">... and countless moments in between.</p>
+            <p class="timeline-footer">...and many more moments to come.</p>
         </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- SECTION 3: THE SILVER COUNTDOWN -->
-    <!-- ======================================================= -->
     <section id="section-3" class="py-16 px-4">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl sm:text-4xl font-light mb-8">Looking Forward to the Next Milestone:</h2>
-            <p class="text-5xl sm:text-6xl font-extrabold text-yellow-400 mb-10">
-                The Silver Anniversary! (25 Years)
-            </p>
+            <p class="text-5xl sm:text-6xl font-extrabold text-yellow-400 mb-10">The Silver Anniversary! (25 Years)</p>
 
             <div class="flex justify-center flex-wrap gap-4 sm:gap-6 md:gap-8 countdown-container">
-                <!-- Time Blocks will be updated by JavaScript -->
                 <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
                     <span id="days" class="text-4xl sm:text-5xl font-extrabold block">00</span>
                     <p class="text-sm font-semibold uppercase tracking-wider mt-1">Days</p>
@@ -429,15 +370,14 @@
     </footer>
 
     <script>
-        // THEME HANDLING
         const root = document.documentElement;
         const toggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const themeLabel = document.getElementById('themeLabel');
 
         const ICONS = {
-            sun: `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f59e0b\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41\"/></svg>`,
-            moon: ` <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#fbbf24\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z\"/></svg>`
+            sun: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>`,
+            moon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`
         };
 
         function applyTheme(theme) {
@@ -452,7 +392,6 @@
             }
         }
 
-        // initialize theme: prefer saved -> system preference -> light
         const saved = localStorage.getItem('site-theme');
         if (saved) {
             applyTheme(saved);
@@ -469,26 +408,19 @@
             localStorage.setItem('site-theme', next);
         });
 
-        // JAVASCRIPT LOGIC
-        // 1. Silver Countdown Logic (Section 3)
-        // Set the target date for the 25th anniversary (Dec 8, 2026, based on a 2002 wedding date assumption)
         const countdownDate = new Date("Dec 8, 2026 00:00:00").getTime();
         const countdownSection = document.getElementById("section-3");
-
         const countdownInterval = setInterval(function () {
             const now = new Date().getTime();
             const distance = countdownDate - now;
 
-            // Time calculations
             const d = Math.floor(distance / (1000 * 60 * 60 * 24));
             const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Function to pad single digits with a leading zero
             const pad = (num) => Math.abs(num).toString().padStart(2, '0');
 
-            // Output the result in elements
             const daysEl = document.getElementById("days");
             const hoursEl = document.getElementById("hours");
             const minutesEl = document.getElementById("minutes");
@@ -501,7 +433,6 @@
                 secondsEl.innerHTML = pad(s);
             }
 
-            // If the countdown is finished (or passed)
             if (distance < 0) {
                 clearInterval(countdownInterval);
                 if (countdownSection) {
@@ -515,34 +446,25 @@
             }
         }, 1000);
 
-        // 2. Scroll Reveal Logic (Section 2)
-        // Uses the Intersection Observer API for smooth fade-in animation
         const timelineItems = document.querySelectorAll('.timeline-item');
 
-        // Check for Intersection Observer support
         if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Apply a slight delay based on the item's position for a cascading effect
                         const delay = Array.from(timelineItems).indexOf(entry.target) * 100;
                         setTimeout(() => {
                             entry.target.classList.add('visible');
-                            // Stop observing once visible
                             observer.unobserve(entry.target);
                         }, delay);
                     }
                 });
-            }, {
-                threshold: 0.1 // Trigger when 10% of the item is visible
-            });
+            }, { threshold: 0.1 });
 
-            // Start observing all timeline items
             timelineItems.forEach(item => {
                 observer.observe(item);
             });
         } else {
-            // Fallback for older browsers: just show everything
             timelineItems.forEach(item => {
                 item.classList.add('visible');
             });
