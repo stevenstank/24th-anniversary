@@ -34,6 +34,7 @@
         html,
         body {
             height: 100%;
+            overflow-x: hidden;
         }
 
         body {
@@ -99,37 +100,14 @@
             padding: 10px 20px;
         }
 
-        /* Mobile Timeline Stack (Default) */
         @media (max-width: 767px) {
-            .timeline-section::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 20px;
-                width: 4px;
-                background-color: var(--bg);
-                margin-left: 0;
-                transition: background-color 300ms ease;
-            }
-
             .timeline-item {
-                padding-left: 40px;
+                padding-left: 20px;
                 padding-right: 20px;
             }
 
             .timeline-item::after {
-                content: '';
-                position: absolute;
-                width: 14px;
-                height: 14px;
-                border: 3px solid var(--accent);
-                background-color: var(--panel);
-                border-radius: 50%;
-                top: 40px;
-                left: 17px;
-                z-index: 10;
-                transition: background-color 300ms ease, border-color 300ms ease;
+                content: none;
             }
 
             .timeline-item.right {
@@ -144,33 +122,20 @@
             }
         }
 
-        /* Desktop/Tablet Styles: Two-Column Layout */
         @media (min-width: 768px) {
-            .timeline-section::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 50%;
-                width: 4px;
-                margin-left: -2px;
-                background-color: var(--bg);
-                transition: background-color 300ms ease;
-            }
-
             .timeline-item {
                 width: 50%;
-                padding: 10px 20px;
-            }
-
-            .timeline-item.right {
-                left: 50%;
-                padding-left: 40px;
+                padding: 10px 30px;
             }
 
             .timeline-item.left {
                 left: 0;
-                padding-right: 40px;
+                padding-right: 60px;
+            }
+
+            .timeline-item.right {
+                left: 50%;
+                padding-left: 60px;
             }
 
             .timeline-item::after {
@@ -187,15 +152,16 @@
             }
 
             .timeline-item.left::after {
-                right: -7px;
+                right: 25px;
             }
 
             .timeline-item.right::after {
-                left: -7px;
+                left: 25px;
             }
 
             .timeline-item.left .timeline-photo-card {
                 margin-left: auto;
+                transform: rotate(1deg);
             }
 
             .timeline-item:nth-child(even) .timeline-photo-card {
