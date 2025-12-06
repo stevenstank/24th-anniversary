@@ -71,6 +71,16 @@
             text-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
         }
 
+        @media (max-width: 768px) {
+            .hero-headline.text-6xl {
+                font-size: 3rem;
+            }
+
+            .hero-headline.text-4xl {
+                font-size: 2.25rem;
+            }
+        }
+
         .timeline-section {
             padding: 80px 0;
             position: relative;
@@ -81,26 +91,112 @@
         .timeline-item {
             padding: 10px 20px;
             position: relative;
-            width: 50%;
+            width: 100%;
+            left: 0;
             box-sizing: border-box;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
+        @media (min-width: 768px) {
+            .timeline-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                width: 4px;
+                margin-left: -2px;
+                background-color: var(--bg);
+                transition: background-color 300ms ease;
+            }
+
+            .timeline-item {
+                width: 50%;
+                padding: 10px 20px;
+            }
+
+            .timeline-item.right {
+                left: 50%;
+                padding-left: 40px;
+            }
+
+            .timeline-item.left {
+                left: 0;
+                padding-right: 40px;
+            }
+
+            .timeline-item::after {
+                content: '';
+                position: absolute;
+                width: 14px;
+                height: 14px;
+                border: 3px solid var(--accent);
+                background-color: var(--panel);
+                border-radius: 50%;
+                top: 40px;
+                z-index: 10;
+                transition: background-color 300ms ease, border-color 300ms ease;
+            }
+
+            .timeline-item.left::after {
+                right: -7px;
+            }
+
+            .timeline-item.right::after {
+                left: -7px;
+            }
+
+            .timeline-item.left .timeline-photo-card {
+                margin-left: auto;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .timeline-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 20px;
+                width: 4px;
+                background-color: var(--bg);
+                margin-left: 0;
+                transition: background-color 300ms ease;
+            }
+
+            .timeline-item {
+                padding-left: 40px;
+                padding-right: 20px;
+            }
+
+            .timeline-item::after {
+                content: '';
+                position: absolute;
+                width: 14px;
+                height: 14px;
+                border: 3px solid var(--accent);
+                background-color: var(--panel);
+                border-radius: 50%;
+                top: 40px;
+                left: 17px;
+                z-index: 10;
+                transition: background-color 300ms ease, border-color 300ms ease;
+            }
+
+            .timeline-item .timeline-photo-card,
+            .timeline-item:nth-child(even) .timeline-photo-card {
+                transform: none;
+                max-width: 300px;
+                margin: 0;
+            }
+        }
+
+
         .timeline-item.visible {
             opacity: 1;
             transform: translateY(0);
-        }
-
-        .timeline-item.left {
-            left: 0;
-            padding-right: 20px;
-        }
-
-        .timeline-item.right {
-            left: 50%;
-            padding-left: 20px;
         }
 
         .timeline-photo-card {
@@ -168,6 +264,24 @@
             transform: translateY(-6px);
         }
 
+        .countdown-container {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .time-block {
+            width: 45%;
+            min-width: 120px;
+            max-width: 160px;
+        }
+
+        @media (min-width: 640px) {
+            .time-block {
+                width: 28%;
+                max-width: 180px;
+            }
+        }
+
         .theme-toggle {
             position: fixed;
             right: 20px;
@@ -207,16 +321,13 @@
         }
 
         @media (max-width: 768px) {
-            .timeline-item {
-                width: 100%;
-                left: 0;
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-
             .theme-toggle {
                 right: 14px;
                 top: 14px;
+            }
+
+            .theme-toggle .sm\:inline {
+                display: none !important;
             }
         }
     </style>
@@ -236,7 +347,7 @@
             <h2 class="text-4xl sm:text-5xl lg:text-6xl font-light italic mb-8 hero-headline">
                 Happy Anniversary, Mom & Dad!
             </h2>
-            <p class="text-lg sm:text-xl font-medium max-w-2xl mx-auto mb-10">
+            <p class="text-lg sm:text-xl font-medium max-w-2xl mx-auto mb-10 text-white/90">
                 Today, we celebrate two decades and four years of unwavering love, adventure, and family.
             </p>
 
@@ -253,12 +364,11 @@
             <p class="timeline-subtitle">A journey captured in moments.</p>
         </div>
 
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-4xl mx-auto relative px-4 md:px-0">
 
-            
             <div class="timeline-item left">
                 <div class="timeline-photo-card">
-                    <img src="images/photo3.jpeg" alt="Wedding ceremony  vintage">
+                    <img src="images/photo3.jpeg" alt="Wedding ceremony vintage">
                 </div>
                 <div class="timeline-content">
                     <h3 class="text-xl font-semibold timeline-year">The Wedding Day</h3>
@@ -266,7 +376,7 @@
                 </div>
             </div>
 
-           
+
             <div class="timeline-item right">
                 <div class="timeline-photo-card">
                     <img src="images/photo8.jpeg" alt="Young couple - throwback">
@@ -278,7 +388,7 @@
                 </div>
             </div>
 
-           
+
             <div class="timeline-item left">
                 <div class="timeline-photo-card">
                     <img src="images/photo1.jpeg" alt="Family portrait - special celebration">
@@ -290,7 +400,7 @@
                 </div>
             </div>
 
-            
+
             <div class="timeline-item right">
                 <div class="timeline-photo-card">
                     <img src="images/photo6.jpeg" alt="Kids selfie having fun">
@@ -301,7 +411,7 @@
                 </div>
             </div>
 
-            
+
             <div class="timeline-item left">
                 <div class="timeline-photo-card">
                     <img src="images/photo7.jpeg" alt="Family at temple">
@@ -312,7 +422,7 @@
                 </div>
             </div>
 
-           
+
             <div class="timeline-item right">
                 <div class="timeline-photo-card">
                     <img src="images/photo4.jpeg" alt="Couple with bouquet">
@@ -324,7 +434,7 @@
                 </div>
             </div>
 
-           
+
             <div class="timeline-item left">
                 <div class="timeline-photo-card">
                     <img src="images/photo5.jpeg" alt="Misty forest day out">
@@ -335,7 +445,7 @@
                 </div>
             </div>
 
-           
+
             <div class="timeline-item right">
                 <div class="timeline-photo-card">
                     <img src="images/photo2.jpeg" alt="Couple on hilltop">
@@ -359,20 +469,20 @@
             <h2 class="text-3xl sm:text-4xl font-light mb-8">Looking Forward to the Next Milestone:</h2>
             <p class="text-5xl sm:text-6xl font-extrabold text-yellow-400 mb-10">The Silver Anniversary! (25 Years)</p>
 
-            <div class="flex justify-center flex-wrap gap-4 sm:gap-6 md:gap-8 countdown-container">
-                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
+            <div class="flex justify-center flex-wrap gap-4 countdown-container">
+                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg mb-4">
                     <span id="days" class="text-4xl sm:text-5xl font-extrabold block">00</span>
                     <p class="text-sm font-semibold uppercase tracking-wider mt-1">Days</p>
                 </div>
-                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
+                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg mb-4">
                     <span id="hours" class="text-4xl sm:text-5xl font-extrabold block">00</span>
                     <p class="text-sm font-semibold uppercase tracking-wider mt-1">Hours</p>
                 </div>
-                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
+                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg mb-4">
                     <span id="minutes" class="text-4xl sm:text-5xl font-extrabold block">00</span>
                     <p class="text-sm font-semibold uppercase tracking-wider mt-1">Minutes</p>
                 </div>
-                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg w-28 sm:w-36">
+                <div class="time-block bg-white/90 text-gray-800 p-4 rounded-xl shadow-lg mb-4">
                     <span id="seconds" class="text-4xl sm:text-5xl font-extrabold block">00</span>
                     <p class="text-sm font-semibold uppercase tracking-wider mt-1">Seconds</p>
                 </div>
